@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="sequence-folder",
-    version="0.1",
+    version="0.2",
     author="Léo El Amri",
     author_email="leo@superlel.me",
     description='Simple Python library to "make" multi dimension array from a'\

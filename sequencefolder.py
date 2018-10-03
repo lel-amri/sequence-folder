@@ -12,10 +12,7 @@ class _DimensionAccessor(object):
     def __getitem__(self, key):
         new_dim = self._cur_dim + [key]
         if new_dim[-1] >= self._dims[len(new_dim) - 1]:
-            msg = [
-                '_DimensionAccessor'
-            ]
-            msg.extend(['[{}]'.format(n) for n in new_dim])
+            msg = ['[{}]'.format(n) for n in new_dim]
             raise IndexError(''.join(msg))
         if len(new_dim) == len(self._dims):
             pos = 0
@@ -28,10 +25,7 @@ class _DimensionAccessor(object):
     def __setitem__(self, key, value):
         new_dim = self._cur_dim + [key]
         if new_dim[-1] >= self._dims[len(new_dim) - 1]:
-            msg = [
-                '_DimensionAccessor'
-            ]
-            msg.extend(['[{}]'.format(n) for n in new_dim])
+            msg = ['[{}]'.format(n) for n in new_dim]
             raise IndexError(''.join(msg))
         if len(new_dim) == len(self._dims):
             pos = 0
@@ -43,11 +37,12 @@ class _DimensionAccessor(object):
             raise IndexError()
 
 
-def fold(sequence, dimensions):
-    dimensions = tuple(map(int, dimensions))
-    size = functools.reduce(operator.mul, dimensions)
-    if len(sequence) < size:
-        raise ValueError(\
-                'The sequence does not have the proper size'\
-                f' ({len(sequence)} < {size})')
-    return _DimensionAccessor(sequence, dimensions, [])
+class SequenceFolder(_DimensionAccessor):
+    def __init__(self, sequence, dimensions):
+        dimensions = tuple(map(int, dimensions))
+        size = functools.reduce(operator.mul, dimensions)
+        if len(sequence) < size:
+            raise ValueError(\
+                    'The sequence does not have the proper size'\
+                    f' ({len(sequence)} < {size})')
+        super().__init__(sequence, dimensions, [])

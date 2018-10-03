@@ -1,5 +1,7 @@
 import unittest
-from sequencefolder import _DimensionAccessor as DimensionAccessor
+from sequencefolder import (
+    _DimensionAccessor as DimensionAccessor, SequenceFolder
+)
 
 
 class TestDimensionAccessorGet(unittest.TestCase):
@@ -56,6 +58,17 @@ class TestDimensionAccessorSet(unittest.TestCase):
         self.assertEqual(da[7][0][4], 9)
         self.assertEqual(da[4][1][4], 9)
         self.assertEqual(da[1][5][4], 9)
+
+
+class TestSequenceFolder(unittest.TestCase):
+    def test(self):
+        sf = SequenceFolder([42 for i in range(4 * 2)], (4, 2))
+        sf[0][1] = 9
+        sf[2][1] = 9
+        sf[0][0] = 9
+        self.assertEqual(sf[0][1], 9)
+        self.assertEqual(sf[2][1], 9)
+        self.assertEqual(sf[0][0], 9)
 
 
 if __name__ == '__main__':
